@@ -1,10 +1,19 @@
 var React = require('react')
 var {Link, IndexLink} = require('react-router')
 
+
 var Nav = React.createClass({
   onSearch: function (e) {
     e.preventDefault()
-    alert('Not yet wired up')
+
+    var headerSearch = this.refs.headerSearch.value
+    var encodedLocation = encodeURIComponent(headerSearch)
+
+    if (headerSearch.length > 0) {
+      this.refs.headerSearch.value = ''
+      window.location.hash = '#/?city=' + encodedLocation
+    }
+
   },
   render: function () {
     return (
@@ -29,7 +38,7 @@ var Nav = React.createClass({
           <form onSubmit={this.onSearch}>
             <ul className='menu'>
               <li>
-                <input type='search' placeholder='Search weather by city' />
+                <input type='search' ref='headerSearch' placeholder='Search weather by city' />
               </li>
               <li>
                 <input type='submit' className='button' value='Get Weather' />
